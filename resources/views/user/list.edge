@@ -1,0 +1,72 @@
+@layout('user.master')
+@section('main')
+  <div class="row justify-content-center">
+    <div class="col-sm-12">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-center text-light">
+          Users
+        </div>
+        <div class="card-body">
+          <table class="table responsive-table table-bordered">
+            <thead>
+              <tr>
+                <td>
+                  ID
+                </td>
+                <td>
+                  Role
+                </td>
+                <td>
+                  Name
+                </td>
+                <td>
+                  Email
+                </td>
+                <td>
+                  Actions
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              @each(user in users)
+                <tr>
+                  <td>
+                    {{user.id}}
+                  </td>
+                  <td>
+                    {{user.roles[0].name}}
+                  </td>
+                  <td>
+                    {{user.name}}
+                  </td>
+                  <td>
+                    {{user.email}}
+                  </td>
+                  <td>
+                    <a href="{{route('/user/form')}}?id={{user.id}}" class="btn btn-primary">
+                      Edit
+                    </a>
+                    <a href="{{route('/user/delete')}}?id={{user.id}}" class="btn btn-danger">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              @else
+                
+              @endeach
+            </tbody>
+          </table>
+        </div>
+        @is('admin')
+        <div class="card-footer">
+          <div class="d-flex justify-content-end" >
+            <a href="{{route('/user/form')}}" class="btn btn-success">
+              Create
+            </a>
+          </div>
+        </div>
+        @endis
+      </div>
+    </div>
+  </div>
+@endsection
